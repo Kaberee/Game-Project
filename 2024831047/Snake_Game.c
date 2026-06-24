@@ -32,7 +32,7 @@ typedef struct {
     int x, y;
 } Food;
 
-/* ── Globals ────────────────────────────────────────────────────────────── */
+
 bool          gameIsRunning = false;
 bool          gameOver      = false;
 SDL_Window   *window        = NULL;
@@ -42,7 +42,7 @@ Snake snake;
 Food  food;
 int   score = 0;
 
-/* Custom 3x5 bit-matrix font to cleanly render numbers 0-9 */
+
 const unsigned char font_matrix[10][5] = {
     {0xF,0x9,0x9,0x9,0xF}, // 0
     {0x4,0xC,0x4,0x4,0xE}, // 1
@@ -56,7 +56,7 @@ const unsigned char font_matrix[10][5] = {
     {0xF,0x9,0xF,0x1,0xF}  // 9
 };
 
-/* Hardcoded custom pixel display tracking for "GAME OVER" typography without fonts */
+
 const unsigned char game_over_logo[8][5] = {
     {0xF,0x8,0xB,0x9,0xF}, // G
     {0xF,0x9,0xF,0x9,0x9}, // A
@@ -68,8 +68,7 @@ const unsigned char game_over_logo[8][5] = {
     {0xF,0x9,0xF,0xA,0x9}  // R
 };
 
-/* ── Forward Declarations ───────────────────────────────────────────────── */
-int  initialize_window(void);
+
 void setup(void);
 void process_input(void);
 void update(void);
@@ -235,26 +234,26 @@ void draw_game_over_word(int x, int y, int scale) {
 }
 
 void render(void) {
-    // Clear whole buffer
+    
     SDL_SetRenderDrawColor(renderer, 15, 15, 15, 255);
     SDL_RenderClear(renderer);
 
-    // Draw Score Header Banner Background
+ 
     SDL_SetRenderDrawColor(renderer, 28, 28, 28, 255);
     SDL_Rect header_rect = { 0, 0, WINDOW_WIDTH, BANNER_HEIGHT };
     SDL_RenderFillRect(renderer, &header_rect);
 
-    // Render Live Score Text inside the banner
+    
     char scoreStr[16];
     snprintf(scoreStr, sizeof(scoreStr), "%d", score);
     draw_ui_number(scoreStr, WINDOW_WIDTH / 2 - 10, 10, 4);
 
-    // Render Food (Smooth Non-Pixelated Red Circle)
+   
     int foodX = food.x * CELL_SIZE + CELL_SIZE / 2;
     int foodY = food.y * CELL_SIZE + CELL_SIZE / 2 + BANNER_HEIGHT;
     draw_circle(foodX, foodY, CELL_SIZE / 2 - 1, 235, 70, 70);
 
-    // Render Snake (Smooth Non-Pixelated Green Circles)
+
     for (int i = 0; i < snake.length; i++) {
         int cx = snake.body[i].x * CELL_SIZE + CELL_SIZE / 2;
         int cy = snake.body[i].y * CELL_SIZE + CELL_SIZE / 2 + BANNER_HEIGHT;
@@ -265,7 +264,7 @@ void render(void) {
         }
     }
 
-    // GAME OVER PAGE OVERLAY STATE
+    
     if (gameOver) {
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer,  5,  5,  5, 225); // Opaque backdrop panel
@@ -273,7 +272,7 @@ void render(void) {
         SDL_RenderFillRect(renderer, &overlay);
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
 
-        // Display Custom Rendered Word Art "GAME OVER"
+        
         int wordArtWidth = (9 * 5 * 8);
         draw_game_over_word((WINDOW_WIDTH / 2) - (wordArtWidth / 2), (WINDOW_HEIGHT / 2) - 80, 8);
 
