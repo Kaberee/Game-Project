@@ -6,7 +6,7 @@
 #include <string.h>
 #include <time.h>
 
-/* Window & Grid Settings */
+
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 640
 #define BANNER_HEIGHT 40
